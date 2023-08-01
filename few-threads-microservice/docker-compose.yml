@@ -1,0 +1,12 @@
+version: '3.11'
+
+services:
+  microservice:
+    build:
+      context: ./microservice
+    image: few-threads-microservice
+    container_name: few-threads-microservice
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    command: gunicorn -b 127.0.0.1:8000 -workers=3 -k uvicorn.workers.UvicornWorker few-threads-microservice:api
