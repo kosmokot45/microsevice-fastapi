@@ -26,7 +26,11 @@ async def main():
     await asyncio.gather(*tasks)
 
 
+start = time.time()
 asyncio.run(main())
+end = time.time() - start
+print(f'time {end:0.2f} seconds')
+print(f'mean time for 1 request {end/18:0.2f} seconds')
 
 # start = time.time()
 
