@@ -7,9 +7,9 @@ api = fastapi.FastAPI()
 
 
 @api.get('/api/weather/{city}')
-def get_weather(city: str) -> dict:
-    with httpx.Client() as client:
-        response = client.get(url=f'https://pogoda.mail.ru/prognoz/{city}/')
+async def get_weather(city: str) -> dict:
+    async with httpx.Client() as client:
+        response = await client.get(url=f'https://pogoda.mail.ru/prognoz/{city}/')
         response.raise_for_status()
 
     selector = Selector(text=response.text)
