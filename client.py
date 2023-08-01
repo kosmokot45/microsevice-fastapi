@@ -17,20 +17,24 @@ async def get_data_api(city: str):
         ))
 
 
-tasks = [
-    asyncio.ensure_future(get_data_api('moskva')),
-    asyncio.ensure_future(get_data_api('voronezh')),
-    asyncio.ensure_future(get_data_api('tokyo')),
-    asyncio.ensure_future(get_data_api('london'))
-]
+async def main():
+    tasks = [asyncio.create_task(get_data_api('moskva')),
+             asyncio.create_task(get_data_api('voronezh')),
+             asyncio.create_task(get_data_api('tokyo')),
+             asyncio.create_task(get_data_api('london'))]
 
-start = time.time()
+    await asyncio.gather(*tasks)
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-loop.run_until_complete(asyncio.gather(*tasks))
-loop.close()
 
-end = time.time() - start
-print(f'time {end:0.2f} seconds')
-print(f'mean time for 1 request {end/18:0.2f} seconds')
+asyncio.run(main())
+
+# start = time.time()
+
+# loop = asyncio.new_event_loop()
+# asyncio.set_event_loop(loop)
+# loop.run_until_complete(asyncio.gather(*tasks))
+# loop.close()
+
+# end = time.time() - start
+# print(f'time {end:0.2f} seconds')
+# print(f'mean time for 1 request {end/18:0.2f} seconds')
