@@ -20,6 +20,6 @@ def get_weather(city: str) -> dict:
               'temp': t,
               'src': 'vk'}
 
-    print(result)
+    # print(result)
 
     return result
